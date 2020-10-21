@@ -1,4 +1,4 @@
-package com.lv.smartstock.controllers;
+package com.lv.smartstock.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.lv.smartstock.entity.Categoria;
 import com.lv.smartstock.service.CategoriaService;
 
+import javassist.tools.rmi.ObjectNotFoundException;
+
 @RestController
 @RequestMapping(value = "/categorias")
 public class CategoriaController {
@@ -18,7 +20,7 @@ public class CategoriaController {
 	private CategoriaService service;
 
 	@RequestMapping(value="/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> find(@PathVariable Integer id) {
+	public ResponseEntity<?> find(@PathVariable Integer id) throws ObjectNotFoundException {
 		Categoria obj = service.buscar(id);
 		
 		return ResponseEntity.ok().body(obj);
