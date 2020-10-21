@@ -30,7 +30,7 @@ public class Produto implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String name;
+	private String nome;
 	private Double preco;
 	
 	@JsonBackReference
@@ -40,10 +40,10 @@ public class Produto implements Serializable{
 	)
 	private List<Categoria> categorias = new ArrayList<>();
 
-	public Produto(Integer id, String name, Double preco) {
+	public Produto(Integer id, String nome, Double preco) {
 		super();
 		this.id = id;
-		this.name = name;
+		this.nome = nome;
 		this.preco = preco;
 	}
 }

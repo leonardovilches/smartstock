@@ -8,9 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import javax.persistence.OneToMany;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -18,9 +16,10 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = "produtos")
+@EqualsAndHashCode(exclude = "cidades")
 @Entity
-public class Categoria implements Serializable{
+public class Estado implements Serializable{
+
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -28,26 +27,12 @@ public class Categoria implements Serializable{
 	private Integer id;
 	private String nome;
 	
-	@JsonManagedReference
-	@ManyToMany(mappedBy="categorias")
-	private List<Produto> produtos = new ArrayList<>();
-	
-	public Categoria(Integer id, String nome) {
+	@OneToMany(mappedBy = "estado")
+	private List<Cidade> cidades = new ArrayList<>();
+
+	public Estado(Integer id, String nome) {
 		super();
 		this.id = id;
 		this.nome = nome;
 	}
-	
-//	public Integer getId() {
-//		return id;
-//	}
-//	public void setId(Integer id) {
-//		this.id = id;
-//	}
-//	public String getName() {
-//		return name;
-//	}
-//	public void setName(String name) {
-//		this.name = name;
-//	}
 }
