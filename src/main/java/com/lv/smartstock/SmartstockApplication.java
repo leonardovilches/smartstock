@@ -9,10 +9,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.lv.smartstock.entity.Categoria;
 import com.lv.smartstock.entity.Cidade;
+import com.lv.smartstock.entity.Cliente;
+import com.lv.smartstock.entity.Endereco;
 import com.lv.smartstock.entity.Estado;
 import com.lv.smartstock.entity.Produto;
 import com.lv.smartstock.repository.CategoriaRepository;
 import com.lv.smartstock.repository.CidadeRepository;
+import com.lv.smartstock.repository.ClienteRepository;
+import com.lv.smartstock.repository.EnderecoRepository;
 import com.lv.smartstock.repository.EstadoRepository;
 import com.lv.smartstock.repository.ProdutoRepository;
 
@@ -30,6 +34,12 @@ public class SmartstockApplication implements CommandLineRunner{
 	
 	@Autowired
 	private CidadeRepository cidadeRepository;
+	
+	@Autowired
+	private EnderecoRepository enderecoRepository;
+	
+	@Autowired
+	private ClienteRepository clienteRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SmartstockApplication.class, args);
@@ -67,6 +77,20 @@ public class SmartstockApplication implements CommandLineRunner{
 		estadoRepository.saveAll(Arrays.asList(est1, est2));
 		cidadeRepository.saveAll(Arrays.asList(cid1, cid2, cid3));
 		
+		Cliente cliente1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "36367733809");
+		cliente1.getTelefones().addAll(Arrays.asList("17-991531742", "17-992056841"));
+		
+		Cliente cliente2 = new Cliente(null, "Leonardo Vilches", "leovilches08@gmail.com", "36367733809");
+		cliente2.getTelefones().addAll(Arrays.asList("17-991531742"));
+		
+		Endereco end1 = new Endereco(null, "Rua Flores", "300", "Apto 303", "Jardim Maracanã", "353700940", cliente1, cid1);
+		Endereco end2 = new Endereco(null, "Rua Benjamin Constant", "3438", "Apto 74", "Centro", "353700940", cliente2, cid2);
+		
+		cliente1.getEnderecos().addAll(Arrays.asList(end1));
+		cliente2.getEnderecos().addAll(Arrays.asList(end2));
+		
+		clienteRepository.saveAll(Arrays.asList(cliente1, cliente2));
+		enderecoRepository.saveAll(Arrays.asList(end1, end2));
 	}
 
 }
