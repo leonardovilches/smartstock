@@ -20,18 +20,10 @@ public class ClienteController {
 	private ClienteService service;
 
 	@RequestMapping(value="/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> find(@PathVariable Integer id) throws ObjectNotFoundException {
-		Cliente obj = service.buscar(id);
+	public ResponseEntity<Cliente> find(@PathVariable Integer id) throws ObjectNotFoundException {
+		Cliente obj = service.find(id);
 		
 		return ResponseEntity.ok().body(obj);
-//		Cliente cat1 = new Cliente(1, "Juju");
-//		Cliente cat2 = new Cliente(2, "Bolos");
-//
-//		List<Cliente> lista = new ArrayList<>();
-//		lista.add(cat1);
-//		lista.add(cat2);
-//
-//		return lista; 
-
 	}
 }
+ 
