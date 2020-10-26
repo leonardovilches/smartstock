@@ -1,13 +1,13 @@
-package com.lv.smartstock.service;
+package com.lv.smartstock.services;
 
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.lv.smartstock.entity.Cliente;
-import com.lv.smartstock.repository.ClienteRepository;
-import com.lv.smartstock.service.exception.ObjectNotFoundException;
+import com.lv.smartstock.entities.Cliente;
+import com.lv.smartstock.repositories.ClienteRepository;
+import com.lv.smartstock.services.exceptions.ObjectNotFoundException;
 
 
 @Service

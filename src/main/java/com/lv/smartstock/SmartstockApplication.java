@@ -7,18 +7,18 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.lv.smartstock.entity.Categoria;
-import com.lv.smartstock.entity.Cidade;
-import com.lv.smartstock.entity.Cliente;
-import com.lv.smartstock.entity.Endereco;
-import com.lv.smartstock.entity.Estado;
-import com.lv.smartstock.entity.Produto;
-import com.lv.smartstock.repository.CategoriaRepository;
-import com.lv.smartstock.repository.CidadeRepository;
-import com.lv.smartstock.repository.ClienteRepository;
-import com.lv.smartstock.repository.EnderecoRepository;
-import com.lv.smartstock.repository.EstadoRepository;
-import com.lv.smartstock.repository.ProdutoRepository;
+import com.lv.smartstock.entities.Categoria;
+import com.lv.smartstock.entities.Cidade;
+import com.lv.smartstock.entities.Cliente;
+import com.lv.smartstock.entities.Endereco;
+import com.lv.smartstock.entities.Estado;
+import com.lv.smartstock.entities.Produto;
+import com.lv.smartstock.repositories.CategoriaRepository;
+import com.lv.smartstock.repositories.CidadeRepository;
+import com.lv.smartstock.repositories.ClienteRepository;
+import com.lv.smartstock.repositories.EnderecoRepository;
+import com.lv.smartstock.repositories.EstadoRepository;
+import com.lv.smartstock.repositories.ProdutoRepository;
 
 @SpringBootApplication
 public class SmartstockApplication implements CommandLineRunner{

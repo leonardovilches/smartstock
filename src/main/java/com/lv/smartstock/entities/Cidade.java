@@ -1,4 +1,4 @@
-package com.lv.smartstock.entity;
+package com.lv.smartstock.entities;
 
 import java.io.Serializable;
 
@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,27 +18,22 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@EqualsAndHashCode
 @AllArgsConstructor
+@EqualsAndHashCode(exclude = "estado")
 @Entity
-public class Endereco implements Serializable{
+public class Cidade implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String logradouro;
-	private String numero;
-	private String complemento;
-	private String bairro;
-	private String cep;
+	private String nome;
 	
-	@JsonBackReference
+	@JsonManagedReference
 	@ManyToOne
-	@JoinColumn(name = "cliente_id")
-	private Cliente cliente;
-	@ManyToOne
-	@JoinColumn(name = "cidade_id")
-	private Cidade cidade;
+	@JoinColumn(name="estado_id")
+	private Estado estado;
+	
+	
 }

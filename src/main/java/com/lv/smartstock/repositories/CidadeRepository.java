@@ -1,9 +1,9 @@
-package com.lv.smartstock.repository;
+package com.lv.smartstock.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.lv.smartstock.entity.Cidade;
+import com.lv.smartstock.entities.Cidade;
 
 @Repository
 public interface CidadeRepository extends JpaRepository<Cidade, Integer>{

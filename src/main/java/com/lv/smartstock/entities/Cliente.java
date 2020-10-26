@@ -1,4 +1,4 @@
-package com.lv.smartstock.entity;
+package com.lv.smartstock.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;

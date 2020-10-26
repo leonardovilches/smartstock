@@ -1,13 +1,16 @@
-package com.lv.smartstock.service;
+package com.lv.smartstock.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-import com.lv.smartstock.entity.Categoria;
-import com.lv.smartstock.repository.CategoriaRepository;
-import com.lv.smartstock.service.exception.ObjectNotFoundException;
+import com.lv.smartstock.entities.Categoria;
+import com.lv.smartstock.repositories.CategoriaRepository;
+import com.lv.smartstock.services.exceptions.DataIntegrityException;
+import com.lv.smartstock.services.exceptions.ObjectNotFoundException;
 
 
 @Service
@@ -31,5 +34,18 @@ public class CategoriaService {
 	public Categoria update(Categoria obj) {
 		find(obj.getId());
 		return repo.save(obj);
+	}
+
+	public void delete(Integer id) {
+		find(id);
+		try {
+			repo.deleteById(id);			
+		}catch (DataIntegrityViolationException e) {
+			throw new DataIntegrityException("Não é possivel excluir uma categoria que possui produtos");
+		}
+	}
+
+	public List<Categoria> findAll() {
+		return repo.findAll();
 	}
 }

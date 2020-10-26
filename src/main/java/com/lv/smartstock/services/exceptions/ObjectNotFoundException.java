@@ -1,4 +1,4 @@
-package com.lv.smartstock.service.exception;
+package com.lv.smartstock.services.exceptions;
 
 public class ObjectNotFoundException extends RuntimeException{
 

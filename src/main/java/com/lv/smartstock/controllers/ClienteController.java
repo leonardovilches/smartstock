@@ -1,4 +1,4 @@
-package com.lv.smartstock.controller;
+package com.lv.smartstock.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.lv.smartstock.entity.Cliente;
-import com.lv.smartstock.service.ClienteService;
+import com.lv.smartstock.entities.Cliente;
+import com.lv.smartstock.services.ClienteService;
 
 import javassist.tools.rmi.ObjectNotFoundException;
 

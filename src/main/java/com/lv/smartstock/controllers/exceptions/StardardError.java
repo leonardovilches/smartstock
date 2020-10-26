@@ -1,4 +1,4 @@
-package com.lv.smartstock.controller.exception;
+package com.lv.smartstock.controllers.exceptions;
 
 import java.io.Serializable;
 
