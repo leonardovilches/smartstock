@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@EqualsAndHashCode
+@EqualsAndHashCode(exclude = "cidade")
 @AllArgsConstructor
 @Entity
 public class Endereco implements Serializable{
