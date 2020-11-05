@@ -3,6 +3,7 @@ package com.lv.smartstock.services;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.lv.smartstock.entities.Categoria;
@@ -11,15 +12,21 @@ import com.lv.smartstock.entities.Cliente;
 import com.lv.smartstock.entities.Endereco;
 import com.lv.smartstock.entities.Estado;
 import com.lv.smartstock.entities.Produto;
+import com.lv.smartstock.entities.Usuario;
+import com.lv.smartstock.entities.enums.Perfil;
 import com.lv.smartstock.repositories.CategoriaRepository;
 import com.lv.smartstock.repositories.CidadeRepository;
 import com.lv.smartstock.repositories.ClienteRepository;
 import com.lv.smartstock.repositories.EnderecoRepository;
 import com.lv.smartstock.repositories.EstadoRepository;
 import com.lv.smartstock.repositories.ProdutoRepository;
+import com.lv.smartstock.repositories.UsuarioRepository;
 
 @Service
 public class DBService {
+
+	@Autowired
+	private BCryptPasswordEncoder pe;
 	
 	@Autowired
 	private CategoriaRepository categoriaRepository;
@@ -38,6 +45,9 @@ public class DBService {
 	
 	@Autowired
 	private ClienteRepository clienteRepository;
+	
+	@Autowired
+	private UsuarioRepository usuarioRepository;
 
 	public void instantiateTestDatabase() {
 		Categoria cat1 = new Categoria(null, "Juju");
@@ -76,10 +86,11 @@ public class DBService {
 		estadoRepository.saveAll(Arrays.asList(est1, est2));
 		cidadeRepository.saveAll(Arrays.asList(cid1, cid2, cid3));
 		
-		Cliente cliente1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "36367733809");
+		Cliente cliente1 = new Cliente(null, "João José Alcebiades", "jjjunior@gmail.com", "36367733809", pe.encode("1234"));
 		cliente1.getTelefones().addAll(Arrays.asList("17-991531742", "17-992056841"));
+		cliente1.addPerfil(Perfil.ADMIN);
 		
-		Cliente cliente2 = new Cliente(null, "Leonardo Vilches", "leovilches08@gmail.com", "36367733809");
+		Cliente cliente2 = new Cliente(null, "Leonardo Vilches", "leovilches08@gmail.com", "36367733809", pe.encode("1234"));
 		cliente2.getTelefones().addAll(Arrays.asList("17-991531742"));
 		
 		Endereco end1 = new Endereco(null, "Rua Flores", "300", "Apto 303", "Jardim Maracanã", "353700940", cliente1, cid1);
@@ -88,7 +99,12 @@ public class DBService {
 		cliente1.getEnderecos().addAll(Arrays.asList(end1));
 		cliente2.getEnderecos().addAll(Arrays.asList(end2));
 		
+		
 		clienteRepository.saveAll(Arrays.asList(cliente1, cliente2));
 		enderecoRepository.saveAll(Arrays.asList(end1, end2));
+		
+		Usuario usr1 = new Usuario(null, "João José Alcebiades Junior", "jjjunior@gmail.com", pe.encode("1234"));
+		Usuario usr2 = new Usuario(null, "Josi Alcebiades", "josialcebiades@gmail.com", pe.encode("1234"));
+		usuarioRepository.saveAll(Arrays.asList(usr1, usr2));
 	}
 }

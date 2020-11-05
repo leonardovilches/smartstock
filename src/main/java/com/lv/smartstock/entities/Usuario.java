@@ -1,39 +1,39 @@
 package com.lv.smartstock.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = "cidades")
+@EqualsAndHashCode
+@AllArgsConstructor
 @Entity
-public class Estado implements Serializable{
-
+public class Usuario implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
+	@Column(unique = true)
+	private String email;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "estado")
-	private List<Cidade> cidades = new ArrayList<>();
-
-	public Estado(Integer id, String nome) {
+	private String senha;
+	
+	public Usuario(Integer id, String nome) {
 		super();
 		this.id = id;
 		this.nome = nome;
