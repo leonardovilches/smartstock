@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lv.smartstock.dto.EmailDTO;
 import com.lv.smartstock.security.JWTUtil;
 import com.lv.smartstock.security.UserSS;
 import com.lv.smartstock.services.AuthService;
@@ -34,9 +35,9 @@ public class AuthController {
 		return ResponseEntity.noContent().build();
 	}
 	
-//	@RequestMapping(value = "/forgot", method = RequestMethod.POST)
-//	public ResponseEntity<Void> forgot(@Valid @RequestBody EmailDTO objDto) {
-//		service.sendNewPassword(objDto.getEmail());
-//		return ResponseEntity.noContent().build();
-//	}
+	@RequestMapping(value = "/forgot", method = RequestMethod.POST)
+	public ResponseEntity<Void> forgot(@Valid @RequestBody EmailDTO objDto) {
+		service.sendNewPassword(objDto.getEmail());
+		return ResponseEntity.noContent().build();
+	}
 }
