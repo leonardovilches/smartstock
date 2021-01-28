@@ -3,7 +3,6 @@ package com.lv.smartstock.services;
 import java.util.List;
 import java.util.Optional;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -17,8 +16,11 @@ import com.lv.smartstock.dto.ClienteNewDTO;
 import com.lv.smartstock.entities.Cidade;
 import com.lv.smartstock.entities.Cliente;
 import com.lv.smartstock.entities.Endereco;
+import com.lv.smartstock.entities.enums.Perfil;
 import com.lv.smartstock.repositories.ClienteRepository;
 import com.lv.smartstock.repositories.EnderecoRepository;
+import com.lv.smartstock.security.UserSS;
+import com.lv.smartstock.services.exceptions.AuthorizationException;
 import com.lv.smartstock.services.exceptions.DataIntegrityException;
 import com.lv.smartstock.services.exceptions.ObjectNotFoundException;
 
@@ -36,6 +38,12 @@ public class ClienteService {
 	private EnderecoRepository enderecoRepo;
 	
 	public Cliente find(Integer id) throws ObjectNotFoundException {
+		
+		UserSS user = UserService.authenticated();
+		if(user == null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
+			throw new AuthorizationException("Acesso Negado");
+		}
+		
 		Optional<Cliente> obj = repo.findById(id);
 
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
@@ -68,6 +76,20 @@ public class ClienteService {
 
 	public List<Cliente> findAll() {
 		return repo.findAll();
+	}
+	
+	public Cliente findByEmail(String email) {
+		UserSS user = UserService.authenticated();
+		if (user == null || !user.hasRole(Perfil.ADMIN) && !email.equals(user.getUsername())) {
+			throw new AuthorizationException("Acesso negado");
+		}
+	
+		Cliente obj = repo.findByEmail(email);
+		if (obj == null) {
+			throw new ObjectNotFoundException(
+					"Objeto não encontrado! Id: " + user.getId() + ", Tipo: " + Cliente.class.getName());
+		}
+		return obj;
 	}
 	
 	public Page<Cliente> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
