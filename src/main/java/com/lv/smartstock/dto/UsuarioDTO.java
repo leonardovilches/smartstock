@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UsuarioDTO {
 
-	private Integer id;
+	private String id;
 	@NotEmpty(message = "Preenchimento obrigatório.")
 	private String nome;
 	@NotEmpty(message = "Preenchimento obrigatório.")

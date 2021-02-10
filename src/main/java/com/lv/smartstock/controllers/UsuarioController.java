@@ -35,7 +35,7 @@ public class UsuarioController {
 	private UsuarioService service;
 
 	@RequestMapping(value="/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Usuario> find(@PathVariable Integer id) throws ObjectNotFoundException {
+	public ResponseEntity<Usuario> find(@PathVariable String id) throws ObjectNotFoundException {
 		Usuario obj = service.find(id);
 		
 		return ResponseEntity.ok().body(obj);
@@ -55,7 +55,7 @@ public class UsuarioController {
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Void> update(@Valid @RequestBody UsuarioDTO objDto, @PathVariable Integer id) {
+	public ResponseEntity<Void> update(@Valid @RequestBody UsuarioDTO objDto, @PathVariable String id) {
 		Usuario obj = service.fromDTO(objDto);
 		obj.setId(id);
 		obj = service.update(obj);
@@ -63,7 +63,7 @@ public class UsuarioController {
 	}
 	
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<Void> delete(@PathVariable Integer id) {
+	public ResponseEntity<Void> delete(@PathVariable String id) {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
