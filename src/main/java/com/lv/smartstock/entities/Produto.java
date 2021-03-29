@@ -1,17 +1,12 @@
 package com.lv.smartstock.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -19,30 +14,31 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-//@AllArgsConstructor
-@EqualsAndHashCode(exclude = "categorias")
-@Entity
+@EqualsAndHashCode(exclude = "categoria_ids")
+@Document
 public class Produto implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private String id;
 	private String nome;
 	private Double preco;
 	
-	@JsonIgnore
-	@ManyToMany
-	@JoinTable(name = "PRODUTO_CATEGORIA",joinColumns = @JoinColumn(name = "produto_id"),
-			inverseJoinColumns = @JoinColumn(name = "categoria_id")
-	)
-	private List<Categoria> categorias = new ArrayList<>();
+//	@JsonIgnore
+//	@ManyToMany
+//	@JoinTable(name = "PRODUTO_CATEGORIA",joinColumns = @JoinColumn(name = "produto_id"),
+//			inverseJoinColumns = @JoinColumn(name = "categoria_id")
+//	)
+//	private List<Categoria> categorias = new ArrayList<>();
+	@DBRef
+	private List<Categoria> categoria_ids;
 
-	public Produto(Integer id, String nome, Double preco) {
+	public Produto(String id, String nome, Double preco, List<Categoria> categoria_ids) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.preco = preco;
+		this.categoria_ids = categoria_ids;
 	}
 }

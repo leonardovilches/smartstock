@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 
-import com.lv.smartstock.entities.Cliente;
+import com.lv.smartstock.entities.Usuario;
 
 @Service
 public class AbstractEmailService implements EmailService {
@@ -15,14 +15,14 @@ public class AbstractEmailService implements EmailService {
 	private String sender;
 	
 	@Override
-	public void sendNewPasswordEmail(Cliente cliente, String newPass) {
-		SimpleMailMessage sm = prepareNewPasswordEmail(cliente, newPass);
+	public void sendNewPasswordEmail(Usuario usuario, String newPass) {
+		SimpleMailMessage sm = prepareNewPasswordEmail(usuario, newPass);
 		sendEmail(sm);
 	}
 	
-	protected SimpleMailMessage prepareNewPasswordEmail(Cliente cliente, String newPass) {
+	protected SimpleMailMessage prepareNewPasswordEmail(Usuario usuario, String newPass) {
 		SimpleMailMessage sm = new SimpleMailMessage();
-		sm.setTo(cliente.getEmail());
+		sm.setTo(usuario.getEmail());
 		sm.setFrom(sender);
 		sm.setSubject("Solicitação de nova senha");
 		sm.setSentDate(new Date(System.currentTimeMillis()));

@@ -6,24 +6,27 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.lv.smartstock.entities.Cliente;
-import com.lv.smartstock.repositories.ClienteRepository;
+import com.lv.smartstock.entities.Usuario;
+import com.lv.smartstock.repositories.UsuarioRepository;
 import com.lv.smartstock.security.UserSS;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService{
 	
+//	@Autowired
+//	private ClienteRepository clienteRepository;
+	
 	@Autowired
-	private ClienteRepository clienteRepository;
+	private UsuarioRepository usuarioRepository;
 
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		Cliente cli = clienteRepository.findByEmail(email);
+		Usuario user = usuarioRepository.findByEmail(email);
 		
-		if(cli == null) {
+		if(user == null) {
 			throw new UsernameNotFoundException(email);
 		}
-		return new UserSS(cli.getId(), cli.getEmail(), cli.getSenha(), cli.getPerfil());
+		return new UserSS(user.getId(), user.getEmail(), user.getSenha());
 	}
 
 }

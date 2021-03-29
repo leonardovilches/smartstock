@@ -32,9 +32,10 @@ public class Usuario implements Serializable{
 	@JsonIgnore
 	private String senha;
 	
-	public Usuario(String id, String nome) {
+	public Usuario(String id, String nome, String email) {
 		super();
 		this.id = id;
 		this.nome = nome;
+		this.email = email;
 	}
 }
