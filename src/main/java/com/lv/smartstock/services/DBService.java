@@ -58,6 +58,7 @@ public class DBService {
 		Categoria cat6 = new Categoria(null, "Sorvete");
 		Categoria cat7 = new Categoria(null, "Lasanha");
 		Categoria cat8 = new Categoria(null, "Pizza");
+
 		
 		Produto p1 = new Produto(null, "Chocolate", 5.0);
 		Produto p2 = new Produto(null, "Ninho com nutella", 5.0);
@@ -86,12 +87,12 @@ public class DBService {
 		estadoRepository.saveAll(Arrays.asList(est1, est2));
 		cidadeRepository.saveAll(Arrays.asList(cid1, cid2, cid3));
 		
-		Cliente cliente1 = new Cliente(null, "João José Alcebiades", "jjjunior@gmail.com", "36367733809", pe.encode("1234"));
+		Cliente cliente1 = new Cliente(null, "Vanessa Fontes", "vanessa@gmail.com", "36367733809", pe.encode("1234"));
 		cliente1.getTelefones().addAll(Arrays.asList("17-991531742", "17-992056841"));
 		cliente1.addPerfil(Perfil.ADMIN);
 		
-		Cliente cliente2 = new Cliente(null, "Leonardo Vilches", "leovilches08@gmail.com", "36367733809", pe.encode("1234"));
-		cliente2.getTelefones().addAll(Arrays.asList("17-991531742"));
+		Cliente cliente2 = new Cliente(null, "Raquel Fontes", "raquel@gmail.com", "36367733809", pe.encode("1234"));
+		cliente2.getTelefones().addAll(Arrays.asList("17-991531742", "17-992056841"));
 		
 		Endereco end1 = new Endereco(null, "Rua Flores", "300", "Apto 303", "Jardim Maracanã", "353700940", cliente1, cid1);
 		Endereco end2 = new Endereco(null, "Rua Benjamin Constant", "3438", "Apto 74", "Centro", "353700940", cliente2, cid2);
@@ -103,8 +104,8 @@ public class DBService {
 		clienteRepository.saveAll(Arrays.asList(cliente1, cliente2));
 		enderecoRepository.saveAll(Arrays.asList(end1, end2));
 		
-		Usuario usr1 = new Usuario(null, "João José Alcebiades Junior", "jjjunior@gmail.com", pe.encode("1234"));
-		Usuario usr2 = new Usuario(null, "Josi Alcebiades", "josialcebiades@gmail.com", pe.encode("1234"));
+		Usuario usr1 = new Usuario(null, "Leonardo Vilches", "leovilches@gmail.com", pe.encode("1234"));
+		Usuario usr2 = new Usuario(null, "Denilson Fontes", "denilson@gmail.com", pe.encode("1234"));
 		usuarioRepository.saveAll(Arrays.asList(usr1, usr2));
 	}
 }
