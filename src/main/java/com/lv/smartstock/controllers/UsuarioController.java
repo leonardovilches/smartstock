@@ -34,7 +34,7 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioService service;
 
-	@RequestMapping(value="/{id}", method = RequestMethod.GET)
+	@GetMapping(value="/{id}")
 	public ResponseEntity<Usuario> find(@PathVariable Integer id) throws ObjectNotFoundException {
 		Usuario obj = service.find(id);
 		
