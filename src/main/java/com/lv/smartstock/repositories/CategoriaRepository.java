@@ -7,5 +7,5 @@ import com.lv.smartstock.entities.Categoria;
 
 @Repository
 public interface CategoriaRepository extends JpaRepository<Categoria, Integer>{
-
+	
 }

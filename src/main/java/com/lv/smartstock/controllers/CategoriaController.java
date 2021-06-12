@@ -9,7 +9,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,15 +24,19 @@ import com.lv.smartstock.dto.CategoriaDTO;
 import com.lv.smartstock.entities.Categoria;
 import com.lv.smartstock.services.CategoriaService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import javassist.tools.rmi.ObjectNotFoundException;
 
 @RestController
 @RequestMapping(value = "/categorias")
+@Api(value = "Categoria Controller")
 public class CategoriaController {
 	
 	@Autowired
 	private CategoriaService service;
 
+	@ApiOperation(value = "Busca uma categoria pelo ID.")
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Categoria> find(@PathVariable Integer id) throws ObjectNotFoundException {
 		Categoria obj = service.find(id);
@@ -42,6 +45,7 @@ public class CategoriaController {
 	}
 	
 //	@PreAuthorize("hasAnyRole('ADMIN')")
+	@ApiOperation(value = "Insere categoria.")
 	@PostMapping
 	public ResponseEntity<Void> insert(@Valid @RequestBody CategoriaDTO objDto) {
 		Categoria obj = service.fromDTO(objDto);
@@ -56,6 +60,7 @@ public class CategoriaController {
 	}
 	
 //	@PreAuthorize("hasAnyRole('ADMIN')")
+	@ApiOperation(value = "Atualiza categoria pelo ID.")
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<Void> update(@Valid @RequestBody CategoriaDTO objDto, @PathVariable Integer id) {
 		Categoria obj = service.fromDTO(objDto);
@@ -65,12 +70,14 @@ public class CategoriaController {
 	}
 	
 //	@PreAuthorize("hasAnyRole('ADMIN')")
+	@ApiOperation(value = "Deleta categoria pelo ID.")
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 	
+	@ApiOperation(value = "Busca todas categorias.")
 	@GetMapping
 	public ResponseEntity<List<CategoriaDTO>> findAll() throws ObjectNotFoundException {
 		List<Categoria> list = service.findAll();
@@ -78,6 +85,7 @@ public class CategoriaController {
 		return ResponseEntity.ok().body(listDto);
 	}
 	
+	@ApiOperation(value = "Busca pela página.")
 	@GetMapping(value = "/page")
 	public ResponseEntity<Page<CategoriaDTO>> findPage(
 			@RequestParam(value = "page", defaultValue = "0") Integer page, 
