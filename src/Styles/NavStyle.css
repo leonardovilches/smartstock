@@ -50,3 +50,16 @@
     background-color: #FF8E8E;
 }
 
+.navContainer button:focus img {
+    transform: scale(1.07,1.07);
+    transition: 0.5s;
+}
+
+.navContainer button:hover img {
+    transform: scale(1.07,1.07);
+    transition: 0.5s;
+}
+
+.navContainer button img {
+    transition: 0.5s;
+}

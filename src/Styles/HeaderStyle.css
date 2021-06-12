@@ -133,3 +133,9 @@
     content: unset;
 }
 
+.buttonsCont button:active {
+    color: var(--primaryColor);
+    border-color: var(--primaryColor);
+    transform: scale(1.07,1.07);
+    transition: 0.1s;
+}
