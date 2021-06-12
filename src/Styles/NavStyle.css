@@ -5,10 +5,15 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+    flex-wrap: wrap;
 }
 
 .navContainer button:first-child {
     padding: 0.25rem 0.625rem;
+}
+
+.navContainer button:last-child {
+   margin-top: auto;
 }
 
 .navContainer button {
@@ -44,3 +49,4 @@
 .navContainer button:focus {
     background-color: #FF8E8E;
 }
+

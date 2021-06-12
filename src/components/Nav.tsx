@@ -26,7 +26,11 @@ export default function Nav() {
             </button>
             <button onClick={() => printHello("EditProdutos")}>
                 <img src="icons/EditProdutos.svg" alt="EditProdutos" ></img>
-            </button>   
+            </button>
+            <button onClick={() => printHello("Config")}>
+                <img src="icons/Config.svg" alt="Config" ></img>
+            </button>  
+             
             
         </div>
     )
