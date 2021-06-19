@@ -110,7 +110,7 @@ public class ClienteService {
 	}
 	
 	public Cliente passwordFromDTO(ClienteOnlyPasswordDTO objDto) {
-		return new Cliente(objDto.getId(), null, null, null, objDto.getSenha());
+		return new Cliente(objDto.getId(), null, null, null, objDto.getSenhaNova());
 	}
 	
 	public Cliente fromDTO(ClienteNewDTO objDto) {
@@ -145,6 +145,19 @@ public class ClienteService {
 			newObj.setSenha(pe.encode(obj.getSenha()));			
 		}
 
+	}
+	
+	public boolean passwordVerify(int id, String senhaAtual) {
+		Optional<Cliente> obj = repo.findById(id);
+		Cliente newObj = obj.orElseThrow();
+		
+		if(pe.matches(senhaAtual, newObj.getSenha())) {
+			return true;
+		}
+		else {
+			return false;
+		}
+			
 	}
 	
 }

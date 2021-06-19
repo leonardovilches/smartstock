@@ -73,11 +73,18 @@ public class ClienteController {
 	
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@PutMapping(value = "/password/{id}")
-	public ResponseEntity<Void> update(@Valid @RequestBody ClienteOnlyPasswordDTO objDto, @PathVariable Integer id) {
+	public ResponseEntity<String> update(@Valid @RequestBody ClienteOnlyPasswordDTO objDto, @PathVariable Integer id) {
 		Cliente obj = service.passwordFromDTO(objDto);
 		obj.setId(id);
-		obj = service.updatePassword(obj);
-		return ResponseEntity.noContent().build();
+		if(service.passwordVerify(obj.getId(), objDto.getSenhaAtual())) {
+			obj = service.updatePassword(obj);
+			return ResponseEntity.ok().build();
+		}
+		else {
+			return ResponseEntity.status(401).body("Senha Incorreta");
+		}
+		
+		
 	}
 	
 	

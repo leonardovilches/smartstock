@@ -51,7 +51,6 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             FilterChain chain,
             Authentication auth) throws IOException, ServletException{
 		String username = ((UserSS) auth.getPrincipal()).getUsername();
-		String senha = ((UserSS) auth.getPrincipal()).getPassword();
 		String nome = ((UserSS) auth.getPrincipal()).getNome();
 		int ID = ((UserSS) auth.getPrincipal()).getId();
 		
