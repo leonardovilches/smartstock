@@ -23,6 +23,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.lv.smartstock.dto.ClienteDTO;
 import com.lv.smartstock.dto.ClienteNewDTO;
+import com.lv.smartstock.dto.ClienteOnlyPasswordDTO;
 import com.lv.smartstock.entities.Cliente;
 import com.lv.smartstock.services.ClienteService;
 
@@ -62,13 +63,23 @@ public class ClienteController {
 	}
 	
 	@PreAuthorize("hasAnyRole('ADMIN')")
-	@PutMapping(value = "/{id}")
+	@PutMapping(value = "/account/{id}")
 	public ResponseEntity<Void> update(@Valid @RequestBody ClienteDTO objDto, @PathVariable Integer id) {
-		Cliente obj = service.fromDTO(objDto);
+		Cliente obj = service.basicDataFromDTO(objDto);
 		obj.setId(id);
-		obj = service.update(obj);
+		obj = service.updateBasicData(obj);
 		return ResponseEntity.noContent().build();
 	}
+	
+	@PreAuthorize("hasAnyRole('ADMIN')")
+	@PutMapping(value = "/password/{id}")
+	public ResponseEntity<Void> update(@Valid @RequestBody ClienteOnlyPasswordDTO objDto, @PathVariable Integer id) {
+		Cliente obj = service.passwordFromDTO(objDto);
+		obj.setId(id);
+		obj = service.updatePassword(obj);
+		return ResponseEntity.noContent().build();
+	}
+	
 	
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@DeleteMapping(value = "/{id}")

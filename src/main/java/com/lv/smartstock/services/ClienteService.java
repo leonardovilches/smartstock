@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.lv.smartstock.dto.ClienteDTO;
 import com.lv.smartstock.dto.ClienteNewDTO;
+import com.lv.smartstock.dto.ClienteOnlyPasswordDTO;
 import com.lv.smartstock.entities.Cidade;
 import com.lv.smartstock.entities.Cliente;
 import com.lv.smartstock.entities.Endereco;
@@ -58,9 +59,16 @@ public class ClienteService {
 		return obj;
 	}
 	
-	public Cliente update(Cliente obj) {
+	public Cliente updateBasicData(Cliente obj) {
 		Cliente newObj = find(obj.getId());
-		updateData(newObj, obj);
+		updateBasicData(newObj, obj);
+		
+		return repo.save(newObj);
+	}
+	
+	public Cliente updatePassword(Cliente obj) {
+		Cliente newObj = find(obj.getId());
+		updatePasswordData(newObj, obj);
 		
 		return repo.save(newObj);
 	}
@@ -97,8 +105,12 @@ public class ClienteService {
 		return repo.findAll(pageRequest);
 	}
 	
-	public Cliente fromDTO(ClienteDTO objDto) {
+	public Cliente basicDataFromDTO(ClienteDTO objDto) {
 		return new Cliente(objDto.getId(), objDto.getNome(), objDto.getEmail(), null, null);
+	}
+	
+	public Cliente passwordFromDTO(ClienteOnlyPasswordDTO objDto) {
+		return new Cliente(objDto.getId(), null, null, null, objDto.getSenha());
 	}
 	
 	public Cliente fromDTO(ClienteNewDTO objDto) {
@@ -119,7 +131,7 @@ public class ClienteService {
 		return cli;
 	}
 	
-	private void updateData(Cliente newObj, Cliente obj) {
+	private void updateBasicData(Cliente newObj, Cliente obj) {
 		if (obj.getNome() != null) {
 			newObj.setNome(obj.getNome());			
 		}
@@ -127,4 +139,12 @@ public class ClienteService {
 			newObj.setEmail(obj.getEmail());			
 		}
 	}
+	
+	private void updatePasswordData(Cliente newObj, Cliente obj) {
+		if (obj.getSenha() != null) {
+			newObj.setSenha(pe.encode(obj.getSenha()));			
+		}
+
+	}
+	
 }
