@@ -51,10 +51,21 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             FilterChain chain,
             Authentication auth) throws IOException, ServletException{
 		String username = ((UserSS) auth.getPrincipal()).getUsername();
+		String senha = ((UserSS) auth.getPrincipal()).getPassword();
+		String nome = ((UserSS) auth.getPrincipal()).getNome();
+		int ID = ((UserSS) auth.getPrincipal()).getId();
+		
 		String token = jwtUtil.generateToken(username);
+		res.getWriter().append(jsonAccountBody(nome, username, ID));
 		res.addHeader("Authorization", "Bearer " + token);
 		res.addHeader("access-control-expose-headers", "Authorization");
 	}
+	
+	private String jsonAccountBody(String nome, String email, int id) {
+    	return	"{\"ID\": \"" + id + "\", "
+    			+ "\"Nome\": \"" + nome + "\", "
+    			+ "\"Email\": \"" + email + "\"}";
+    }
 	
 	private class JWTAuthenticationFailureHandler implements AuthenticationFailureHandler {
 		 
@@ -62,11 +73,11 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception)
                 throws IOException, ServletException {
             response.setStatus(401);
-            response.setContentType("application/json"); 
-            response.getWriter().append(json());
+            response.setContentType("application/json");
+            response.getWriter().append(jsonError());
         }
         
-        private String json() {
+        private String jsonError() {
             long date = new Date().getTime();
             return "{\"timestamp\": " + date + ", "
                 + "\"status\": 401, "
@@ -74,5 +85,6 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 + "\"message\": \"Email ou senha inválidos\", "
                 + "\"path\": \"/login\"}";
         }
+        
     }
 }
