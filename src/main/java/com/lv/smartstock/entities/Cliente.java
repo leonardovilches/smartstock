@@ -54,7 +54,7 @@ public class Cliente implements Serializable{
 	private Set<Integer> perfis = new HashSet<>();
 	
 	public Cliente() {
-		addPerfil(Perfil.CLIENTE);
+		addPerfil(Perfil.ADMIN);
 	}
 	
 	public Cliente(Integer id, String nome, String email, String cpf, String senha) {
@@ -64,7 +64,7 @@ public class Cliente implements Serializable{
 		this.email = email;
 		this.cpf = cpf;
 		this.senha = senha;
-		addPerfil(Perfil.CLIENTE);
+		addPerfil(Perfil.ADMIN);
 	}
 	
 	public Set<Perfil> getPerfil() {
