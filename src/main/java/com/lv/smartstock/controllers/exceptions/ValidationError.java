@@ -8,8 +8,6 @@ public class ValidationError extends StardardError {
 	
 	private List<FieldMessage> errors = new ArrayList<>();
 
-
-
 	public ValidationError(Long timeStamp, Integer status, String error, String message, String path) {
 		super(timeStamp, status, error, message, path);
 	}
